@@ -4,7 +4,7 @@
   * @author  Llane
   * @version V1.0
   * @date    2021-xx-xx
-  * @brief    qmc5883pÇý¶¯
+  * @brief    qmc5883pÃ‡Ã½Â¶Â¯
   *****************************************************************************
   */ 
 
@@ -50,7 +50,7 @@ int qmc5883p_init(void)
 		nrf_delay_us(10000);
 		qmc5883p_write_reg(QMC5883P_CTL_REG_ONE, 0xCF);//0x0A = 0xC3/0xC7/0xCB/0xCF; 	/*ODR = 10/50/100/200Hz,  MODE = continuous*/
 		nrf_delay_us(10000);
-		qmc5883p_write_reg(QMC5883P_CTL_REG_TWO, 0x00); //0x0B = 0x00/0x04/0x08/0x0C; 	/*RNG = ¡À 30G / ¡À 12G / ¡À 8G / ¡À 2G */
+		qmc5883p_write_reg(QMC5883P_CTL_REG_TWO, 0x00); //0x0B = 0x00/0x04/0x08/0x0C; 	/*RNG = Â¡Ã€ 30G / Â¡Ã€ 12G / Â¡Ã€ 8G / Â¡Ã€ 2G */
 		nrf_delay_us(10000);
 
 	#ifdef QMC5883P_DEBUG
@@ -105,18 +105,17 @@ uint8_t qmc5883p_read_mag_xyz(float *data)
 	hw_d[0] = (((mag_data[1]) << 8) | mag_data[0]);
 	hw_d[1] = (((mag_data[3]) << 8) | mag_data[2]);
 	hw_d[2] = (((mag_data[5]) << 8) | mag_data[4]);
-	uart_printf("Magnetic: %d %d %d \r\n",hw_d[0], hw_d[1], hw_d[2]);
 
-//	//Unit:mG  1G = 100uT = 1000mG
-//	//printf("Hx=%d, Hy=%d, Hz=%d\n",hw_d[0],hw_d[1],hw_d[2]);
-//	raw_c[0] = (int)(hw_d[0]);
-//	raw_c[1] = (int)(hw_d[1]);
-//	raw_c[2] = (int)(hw_d[2]);
-//	//If Range = ¡À2G, 15000LSB/G	If Range = ¡À 8G, 3750LSB/G 
-//	//If Range = ¡À12G, 2500LSB/G	If Range = ¡À 30G, 1000LSB/G
-//	data[0] = (float)raw_c[0] / 1000.0f;
-//	data[1] = (float)raw_c[1] / 1000.0f;
-//	data[2] = (float)raw_c[2] / 1000.0f;
+	//Unit:mG  1G = 100uT = 1000mG
+	//printf("Hx=%d, Hy=%d, Hz=%d\n",hw_d[0],hw_d[1],hw_d[2]);
+	raw_c[0] = (int)(hw_d[0]);
+	raw_c[1] = (int)(hw_d[1]);
+	raw_c[2] = (int)(hw_d[2]);
+	//If Range = Â¡Ã€2G, 15000LSB/G	If Range = Â¡Ã€ 8G, 3750LSB/G 
+	//If Range = Â¡Ã€12G, 2500LSB/G	If Range = Â¡Ã€ 30G, 1000LSB/G
+	data[0] = (float)raw_c[0] / 1000.0f;
+	data[1] = (float)raw_c[1] / 1000.0f;
+	data[2] = (float)raw_c[2] / 1000.0f;
 
 	return 1;
 }
